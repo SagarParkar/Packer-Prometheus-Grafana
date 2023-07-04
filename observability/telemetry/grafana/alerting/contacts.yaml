@@ -15,7 +15,7 @@
        disableResolveMessage: false
        settings:
          #Slack webhook url needs to be given below 
-         url: https://hooks.slack.com/services/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
+         url: #URL
    - orgId: 1
      name: rundeck
      receivers:  
@@ -23,7 +23,7 @@
        type: webhook
        disableResolveMessage: true
        settings:
-         url: http://rundeck:4440/api/44/webhook/CWJ4AymjUsPjGjYh9VLUmLg6kIR6E0Hp#New_Hook
+         url: #URL
          httpMethod: POST 
      - uid: third_uid
        # <string, required> type of the receiver
@@ -32,7 +32,7 @@
        disableResolveMessage: false
        settings:
          #Same Slack webhook url needs to be given below 
-         url: https://hooks.slack.com/services/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    
+         url: #URL
 
  # List of notification policies to import or update
  policies:
