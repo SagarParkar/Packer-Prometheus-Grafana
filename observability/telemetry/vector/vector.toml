@@ -1,0 +1,29 @@
+# Set global options
+data_dir = "/var/lib/vector"
+
+# Vector's API (disabled by default)
+# Enable and try it out with the vector top command
+[api]
+enabled = false
+# address = ":8686"
+
+[sources.docker]
+type = "docker_logs"
+docker_host = "unix:///var/run/docker.sock"
+
+
+[sinks.loki]
+type = "loki"
+inputs = [ "docker" ] 
+endpoint = "http://loki:3100" 
+path = "/loki/api/v1/push"
+compression = "none"
+healthcheck = false
+
+  [sinks.loki.labels]
+  forwarder = "vector"
+  key = "value"
+
+  [sinks.loki.encoding]
+  codec = "json"
+  only_fields = ["container_id", "container_name", "message"]

@@ -1,0 +1,11 @@
+modules:
+  http_status_code:
+    prober: http
+    timeout: 5s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2"]
+      valid_status_codes: [] 
+      method: GET
+      basic_auth:
+        username: "airbyte"
+        password: "password"

@@ -1,0 +1,62 @@
+ apiVersion: 1
+ # List of contact points to import or update
+ contactPoints:
+     # <int> organization ID, default = 1
+   - orgId: 1
+     # <string, required> name of the contact point
+     name: slack
+     #isdefault: true
+     receivers:
+       # <string, required> unique identifier for the receiver
+     - uid: first_uid
+       # <string, required> type of the receiver
+       type: slack
+       # <object, required> settings for the specific receiver type
+       disableResolveMessage: false
+       settings:
+         #Slack webhook url needs to be given below 
+         url: https://hooks.slack.com/services/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
+   - orgId: 1
+     name: rundeck
+     receivers:  
+     - uid: second_uid
+       type: webhook
+       disableResolveMessage: true
+       settings:
+         url: http://rundeck:4440/api/44/webhook/CWJ4AymjUsPjGjYh9VLUmLg6kIR6E0Hp#New_Hook
+         httpMethod: POST 
+     - uid: third_uid
+       # <string, required> type of the receiver
+       type: slack
+       # <object, required> settings for the specific receiver type
+       disableResolveMessage: false
+       settings:
+         #Same Slack webhook url needs to be given below 
+         url: https://hooks.slack.com/services/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    
+
+ # List of notification policies to import or update
+ policies:
+     # <int> organization ID, default = 1
+   - orgId: 1
+     # <string> name of the receiver that should be used for this route
+     receiver: slack
+     routes:
+      - receiver: rundeck
+        object_matchers:
+         - ["http", "=", "non200"]
+
+     #isDefault: true
+     # <list<string>> The labels by which incoming alerts are grouped together. For example,
+     #        multiple alerts coming in for cluster=A and alertname=LatencyHigh would
+     #        be batched into a single group.
+     #
+     #        To aggregate by all possible labels, use the special value '...' as
+     #        the sole label name, for example:
+     #        group_by: ['...']
+     #        This effectively disables aggregation entirely, passing through all
+     #        alerts as-is. This is unlikely to be what you want, unless you have
+     #        a very low alert volume or your upstream notification system performs
+     #        its own grouping.
+     #group_by: #['...']
+     #- grafana_folder
+     #- alertname
